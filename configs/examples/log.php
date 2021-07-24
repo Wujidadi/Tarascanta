@@ -5,11 +5,4 @@
  *
  * @var string
  */
-define('LOG_DIR', '/var/log');
-
-/**
- * Normal log file path.
- *
- * @var string
- */
-define('LOG_FILE', LOG_DIR . DIRECTORY_SEPARATOR . 'php.log');
+define('LOG_DIR', STORAGE_DIR . DIRECTORY_SEPARATOR . 'logs');

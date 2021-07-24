@@ -26,7 +26,7 @@ class Curl
      *
      * @var self|null
      */
-    protected static $_instance = null;
+    protected static $_uniqueInstance = null;
 
     /**
      * Constructor.
@@ -45,11 +45,8 @@ class Curl
      */
     public static function getInstance()
     {
-        if (self::$_instance == null)
-        {
-            self::$_instance = new self();
-        }
-        return self::$_instance;
+        if (self::$_uniqueInstance == null) self::$_uniqueInstance = new self();
+        return self::$_uniqueInstance;
     }
 
     /**

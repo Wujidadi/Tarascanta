@@ -15,9 +15,9 @@ $requestUri = preg_replace(['/\?.*/', '/#.*/'], '', $_SERVER['REQUEST_URI']);
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 
 # Disable .php extension name for request
-if (preg_match('/.+.php$/', $requestUri))
+if (REWRITE_PHP_EXT && preg_match('/.+.php$/', $requestUri))
 {
-    header('HTTP/1.1 404 Not Found');
+    header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
     exit;
 }
 # Remove trailing slash

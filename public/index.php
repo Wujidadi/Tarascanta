@@ -25,6 +25,7 @@ require_once '../bootstrap/definitions.php';
 require_once VENDOR_DIR . '/autoload.php';
 
 # Configurations
+require_once CONFIG_DIR . '/env.php';
 require_once CONFIG_DIR . '/log.php';
 require_once CONFIG_DIR . '/curl.php';
 
@@ -38,5 +39,5 @@ require_once BOOTSTRAP_DIR . '/uriholder.php';
 require_once ROUTE_DIR . '/dispatcher.php';
 
 # All undefined routes lead to 404
-header('HTTP/1.1 404 Not Found');
+header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
 exit;

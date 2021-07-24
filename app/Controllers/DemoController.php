@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Classes\Demo;
+use Libraries\Logger;
 
 class DemoController
 {
@@ -11,7 +12,14 @@ class DemoController
      *
      * @var self|null
      */
-    protected static $_instance = null;
+    protected static $_uniqueInstance = null;
+
+    /**
+     * Constructor.
+     *
+     * @return void
+     */
+    protected function __construct() {}
 
     /**
      * Get the instance of this class.
@@ -20,11 +28,8 @@ class DemoController
      */
     public static function getInstance()
     {
-        if (self::$_instance == null)
-        {
-            self::$_instance = new self();
-        }
-        return self::$_instance;
+        if (self::$_uniqueInstance == null) self::$_uniqueInstance = new self();
+        return self::$_uniqueInstance;
     }
 
     /**

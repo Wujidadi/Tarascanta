@@ -35,7 +35,7 @@ class Logger
      *
      * @var self|null
      */
-    protected static $_instance = null;
+    protected static $_uniqueInstance = null;
 
     /**
      * Constructor.
@@ -54,11 +54,8 @@ class Logger
      */
     public static function getInstance()
     {
-        if (self::$_instance == null)
-        {
-            self::$_instance = new self();
-        }
-        return self::$_instance;
+        if (self::$_uniqueInstance == null) self::$_uniqueInstance = new self();
+        return self::$_uniqueInstance;
     }
 
     /**
@@ -68,7 +65,7 @@ class Logger
      */
     private function _init()
     {
-        $this->_logFile = LOG_FILE;
+        $this->_logFile = LOG_DIR . DIRECTORY_SEPARATOR . 'log_' . date('Ymd') . '.log';
     }
 
     /**
@@ -184,7 +181,16 @@ class Logger
             $prefix = $this->_logPrefix;
             $prefix .= $prefix == '' ? '' : ' ';
 
-            $logMessage = sprintf("[%s] %s[%s](%02d) %s\n", MsTime(), $prefix, $type, ++$this->_logSequence, $message);
+            $logMessage = sprintf(
+                "%s %s %s[%s]: [%s](%d) %s\n",
+                MsTime(),
+                php_uname('n'),
+                $prefix,
+                getmypid(),
+                $type,
+                ++$this->_logSequence,
+                $message
+            );
 
             $result = file_put_contents($this->_logFile, $logMessage, FILE_APPEND);
 
